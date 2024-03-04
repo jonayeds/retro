@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroForum</title>
+    <!-- taiilwind and daisy ui -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/1e67654919.js" crossorigin="anonymous"></script>
+<!-- custom css -->
+<style>
+    .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+    .tooltiptext::after {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+</style>
+
+</head>
+<body class="bg-white">
+    <header class="max-w-[1170px] mx-auto py-8">
+        <nav class="flex items-center justify-between flex-col md:flex-row ">
+            <div>
+                <img src="./images/logo.png" alt="">
+            </div>
+            <div class="flex md:flex-row flex-col items-center gap-10 mt-8 md:mt-0">
+                <ul class="flex items-center gap-6">
+                    <li class="bg-gray-200 p-3 rounded-full border-solid border-[1px] border-gray-400    tooltip cursor-pointer"><img src="./images/home.png" class="" alt=""><span class="tooltiptext">Home</span></li>
+                    <li class="bg-gray-200 p-3 rounded-full border-solid border-[1px] border-gray-400 tooltip cursor-pointer"><img src="./images/pen.png" alt=""><span class="tooltiptext">Edit</span></li>
+                    <li class="bg-gray-200 p-3 rounded-full border-solid border-[1px] border-gray-400 tooltip cursor-pointer"><img src="./images/person.png" alt=""><span class="tooltiptext">Add</span></li>
+                    <li class="bg-gray-200 p-3 rounded-full border-solid border-[1px] border-gray-400 tooltip cursor-pointer"><img src="./images/flag.png" alt=""><span class="tooltiptext">Flagged</span></li>
+                </ul>
+                <button class="bg-[#797DFC] lg:px-8 px-4 rounded-full font-semibold text-2x' text-white py-4">Sign In</button>
+            </div>
+        </nav>
+    </header>
+    <main class="max-w-[1170px] mx-auto pb-40 pt-20">
+        <section class="bg-[url('./images/bgbanner.png')] bg-cover bg-center py-20 px-20 bg-[#12132D] rounded-3xl flex flex-col lg:flex-row justify-between items-center gap-10"> 
+            <div class="text-white flex flex-col items-center">
+                <h1 class="md:text-5xl text-4xl font-bold leading-snug" >Welcome to the <br><span class="text-[#797DFC]">ReTro</span> Forum</h1>
+                <p class="opacity-80 mt-6">Share your favorite opinion and win and <br> wp forum coffee mug!</p>
+                <div class="mt-8 flex items-center w-[340px] md:w-96">
+                    <input type="text" placeholder="Search here anything" id="searchInput" class="bg-white mt-6 px-5 py-3 rounded-full w-80 text-gray-500" ><button class="relative top-3 right-[100px] bg-[#7c81ff] px-6 py-2 rounded-full hover:bg-[#5e62c6]" onclick="handleSearch()">Search</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 lg:w-96 w-72">
+                <div class="flex justify-between p-6 text-2xl text-gray-600 font-semibold"><h3>Registered Users</h3><h3>1</h3></div>
+                <div class="flex justify-between p-6 text-2xl text-gray-600 font-semibold"><h3>Forum</h3><h3>5</h3></div>
+                <div class="flex justify-between p-6 text-2xl text-gray-600 font-semibold"><h3>Topics</h3><h3>1</h3></div>
+                <div class="flex justify-between p-6 text-2xl text-gray-600 font-semibold"><h3>Replies</h3><h3>1</h3></div>
+            </div>
+        </section>
+        <section class=" mt-40">
+            <div class="text-center text-black " >
+                <h1 class="text-4xl font-bold">Let's Discuss</h1>
+                <p class="mt-6 text-gray-600">Yes, you can run unit tests and view the results directly within the app. The <br> integrated testing features allow for a streamlined .</p>
+            </div>
+            <div class="flex justify-center mt-24 hidden " id="loading"><span class="loading loading-infinity loading-lg text-black "></span>
+            </div>
+
+            <div class="flex mt-24 justify-between flex-col lg:flex-row gap-6">
+               <div id="all-posts">
+                
+                <!-- <div class="bg-gray-200 text-gray-600 p-10 hover:bg-purple-50 border-solid border-[1px] rounded-xl hover:border-purple-200 flex gap-3 ">
+                    <div class="flex">
+                        <img src="" alt="" class="h-20 bg-white w-20 rounded-2xl " ><div class="h-4 w-4 bg-green-500 rounded-full relative right-4"></div>
+                    </div>
+                    <div>
+                        <div class="flex"><p class="mr-4">#Music</p><p>Author: Awlad Hossain</p></div>
+                        <h2 class="mt-4 font-bold text-3xl">10 Kids Unaware of Their Halloween Costume</h2>
+                        <p class="mt-6">
+                            It’s one thing to subject yourself to ha Halloween costume mishap because, <br> hey that’s your prerogative
+                        </p>
+                        <hr class="border-dashed border-gray-400 my-4  ">
+                       <div class="flex justify-between items-center mt-8">
+                        <div class="flex gap-4">
+                            <img src="./images/comment.png" alt="">
+                            <p>154</p>
+                            <img src="./images/views.png" class="ml-3" alt="">
+                            <p>546</p>
+                            <img src="./images/time.png" class="h-6 ml-3" alt="">
+                            <p>564</p>
+                        </div>
+                        <img src="./images/mark-as-read.png" alt="" onclick="append()">
+                       </div>
+                    </div>
+                </div> -->
+               </div>
+                <div class="bg-gray-200 hidden text-black rounded-2xl py-8 px-4 min-w-80" id="mark-as-read-container" >
+                    <div class="flex justify-between items-center "><h2 class="text-black font-semibold text-2xl ">Title</h2><p class="flex gap-2"><img src="./images/marked.png" alt="">Mark as read (<span id="readCount">0</span>)</p> </div>
+                    <!-- <div class="bg-white rounded-2xl flex mt-6 py-6 px-6 gap-2 shadow-xl items-center">
+                        <p>10 Kids Unaware of their <br> Halloween Costume </p>
+                        <img src="./images/views.png" alt="" class="w-10">
+                        <p class="text-gray-500">1688</p>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+        <section class="mt-32 lg:px-24 py-32 px-10 rounded-3xl bg-[url('./images/joinforum.png')] bg-no-repeat  text-white bg-right bg-[#12132D]">
+            <div>
+                <h1 class="text-5xl font-bold">Join Our Forum</h1>
+                <p class="opacity-80 mt-6">
+                    Share your favorite opinion and win and wp forum coffee mug! Yes, you can <br> run unit tests and view the results directly within the app. 
+                </p>
+                <button class="bg-[#797DFC] px-9 py-3 text-white rounded-full mt-6">Register Now</button>
+            </div>
+        </section>
+        <section class="mt-40 text-black">
+            <div class="text-center">
+                 <h1 class="text-4xl font-bold">Latest Posts</h1>
+                <p class="mt-6 text-gray-600">Yes, you can run unit tests and view the results directly within the app. The <br> integrated testing features allow for a streamlined .</p>
+            </div>
+            <div class="mt-16 flex justify-around flex-col lg:flex-row items-center  max-h-max" id="latestPost">
+                <div class="flex justify-center mt-24 hidden " id="loadingLatest"><span class="loading loading-infinity loading-lg text-black "></span>
+                <!-- <div class="card card-compact w-96 p-8 border-solid border-[1px] border-gray-300 shadow-xl">
+                    <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" class="rounded-xl"/></figure>
+                    <div class="card-body">
+                        <div class="flex items-center gap-3"><img src="./images/date.png" alt=""><p>29 January 2024</p></div>
+                      <h2 class="card-title">What will a mars habitat force that impact in our daily life!!!</h2>
+                      <p class="opacity-80">Yes, you can run unit tests and view the results directly within the app. </p>
+                      <div class="flex items-center gap-3">
+                        <img src="" alt="" class="">
+                        <div>
+                            <h2 class="text-2xl font-semibold">name</h2>
+                            <p class="opacity-80">designation</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+            </div>
+        </section>
+    </main>
+    <footer class="bg-gray-100 text-center py-20 px-20 ">
+        <div>
+            <h2 class="text-black font-bold text-4xl">ReTro</h2>
+            <p class="my-6 text-gray-500">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a <br> piece of classical Latin literature from 45 BC</p>
+            <div class="flex justify-center gap-4 text-black text-2xl">
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-github"></i>
+            </div>
+            <hr class="border-solid border-gray-200 my-8">
+            <p >2017, All Rights Reserved.</p>
+        </div>
+
+    </footer>
+    
+
+
+    <script src="./main.js"></script>
+</body>
+</html>
